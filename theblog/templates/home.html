@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block contect %}
+{% block content %}
 
 
 <h1><strong>Article</strong></h1>
@@ -8,14 +8,19 @@
 <ul>
 {% for post in object_list %}
 	<li><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> <br/>
-	{{ post.body }} <br/>
+	{{ post.body|slice:"200"|safe }} <br/>
+
+	{% if user.is_authenticated %}
 		<small>
 			<a href="{% url 'update_post' post.pk %}">Edit</a> 
-			<a href="{% url 'delete_post' post.pk %}">Delete</a> <br/> 
-			{{ post.author.first_name }} {{ post.author.last_name }} <br/>
-			{{ post.post_date }}
+			<a href="{% url 'delete_post' post.pk %}">Delete</a> <br/>
 		</small>
+		{% endif %} 
 
+
+		<small><a href="{% url 'category' post.category %}">{{ post.category }}</a></small><br/>
+		<small>{{ post.author.first_name }} {{ post.author.last_name }} <br/>
+			{{ post.post_date }}</small>
 	</li>
 {% endfor %}
 </ul>
