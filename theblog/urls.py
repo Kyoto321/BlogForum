@@ -9,6 +9,7 @@ AddCategoryView,
 CategoryView,
 CategoryListView,
 LikeView,
+AddCommentView,
 )
 
 urlpatterns = [
@@ -22,5 +23,5 @@ urlpatterns = [
     path('article/<int:pk>/remove', DeletePostView.as_view(), name='delete_post'),
     path('category/<str:cats>/', CategoryView, name='category'),
     path('category-list/', CategoryListView, name='category-list'),
-    
+    path('article/<int:pk>/comment/', AddCommentView.as_view(), name='add_comment'),
 ]
